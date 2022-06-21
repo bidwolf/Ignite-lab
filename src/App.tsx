@@ -10,11 +10,18 @@ query{
   }
 }
 `
-
+interface ILesson{
+  id: string;
+  title: string;
+}
 function App() {
   const {data}=useQuery(GET_LESSONS_QUERY)
   return (
-     <h1 className="text-5xl font-bold text-violet-500">Hello World</h1>
+    <ul>
+      {data?.lessons.map((Lesson:ILesson) => {
+        return <li key={Lesson.id}> {Lesson.title}</li>
+      })}
+    </ul>
   )
 }
 
