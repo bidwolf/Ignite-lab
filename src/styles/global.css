@@ -3,4 +3,8 @@
 @tailwind utilities;
 body{
     @apply bg-zinc-800 text-zinc-100
+     /*
+     Adicionando cor de fundo seguindo o padrão de dark mode
+     */
+
 }
