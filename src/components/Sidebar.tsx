@@ -1,13 +1,45 @@
 import Lesson from "./Lesson"
+import {gql,useQuery} from "@apollo/client"
+const GET_LESSONS_QUERY = gql`
+query{
+  lessons(orderBy: availableAt_ASC, stage: PUBLISHED) {
+    id
+    slug
+    title
+    availableAt
+    lessonType
+  }
+}
+`
+interface IGetLessonsQueryResponse{
+    lessons: {
+        id: string;
+        slug: string;
+        title: string;
+        availabeAt: Date;
+        lessonType: 'live'|'class';
+    }[]
+}
 export function Sidebar() {
+    const { data } = useQuery<IGetLessonsQueryResponse>(GET_LESSONS_QUERY);
+    console.log(data)
     return (
         <aside className="w-[348px] bg-gray-700 p-6 border-l border-gray-600">
             <span className="font-bold text-2xl pb-6 mb-6 border-b border-gray-500 block">
                 Cronograma de aulas
             </span>
             <div className="flex flex-col gap-8">
-                <Lesson availableAt={new Date("22/06/2022")}title="Aulinha do pijas"type="live"slug="abertura-do-evento-ignite-lab"key="cl4oh6cxk3jzl0blsluxpxsk3"/>
-                
+                {data?.lessons.map(lesson => {
+                    return (
+                        <Lesson
+                            key={lesson.id}
+                            availableAt={new Date(lesson.availabeAt)}
+                            slug={lesson.slug}
+                            title={lesson.title}
+                            type={lesson.lessonType}
+                        />
+                    )
+                })}
             </div>
         </aside>
     )
