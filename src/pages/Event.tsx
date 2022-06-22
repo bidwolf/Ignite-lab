@@ -1,12 +1,15 @@
 import { Header } from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
+import { Video } from "../components/Video";
 function Event() {
     return (  
-        <>
-        <Header/>
-        <h1>
-            Event
-        </h1>
-        </>
+        <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex flex-1">
+                <Video/>
+                <Sidebar/>
+            </main>
+        </div>
     );
 }
 
