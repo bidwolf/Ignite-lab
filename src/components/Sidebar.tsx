@@ -6,12 +6,8 @@ export function Sidebar() {
                 Cronograma de aulas
             </span>
             <div className="flex flex-col gap-8">
-                <Lesson/>
-                <Lesson/>
-                <Lesson/>
-                <Lesson/>
-                <Lesson/>
-                <Lesson/>
+                <Lesson availableAt={new Date("22/06/2022")}title="Aulinha do pijas"type="live"slug="abertura-do-evento-ignite-lab"key="cl4oh6cxk3jzl0blsluxpxsk3"/>
+                
             </div>
         </aside>
     )
