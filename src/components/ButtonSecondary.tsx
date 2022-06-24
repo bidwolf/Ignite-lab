@@ -13,7 +13,7 @@ function ButtonSecondary(props:IButtonProps) {
                 {props.icon}
                 {props.textButton}
             </>
-              </a>
+        </a>
     );
 }
 
