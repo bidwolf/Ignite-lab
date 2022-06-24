@@ -1,4 +1,4 @@
-import { DiscordLogo, Lightning } from "phosphor-react";
+import { Archive, ArchiveBox, ArchiveTray, ArrowArcRight, ArrowRight, CaretRight, DiscordLogo, Download, FileArrowDown, FileImage, Lightning, ToggleRight } from "phosphor-react";
 import ButtonSuccess from "./ButtonSuccess";
 import ButtonSecondary from "./ButtonSecondary";
 export function Video() {
@@ -40,7 +40,34 @@ export function Video() {
                 <strong className="text-bold text-2xl block"> Henrique de Paula Rodrigues</strong>
                 <span className="text-sm text-gray-200 block">Membro da equipe de Desenvolvimento na COMPET - CEFET-MG</span>
               </div>
-            </div>
+          </div>
+          <div className="mt-20 grid gap-8 items-stretch grid-cols-2">
+            
+            
+            <a href="" className="bg-gray-700 flex justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
+              <div className="bg-green-700 flex items-center p-6 h-full"><FileArrowDown size={40} /></div>
+              <div className="py-6 leading-relaxed">
+                <strong className="text-2xl"> Material Complementar</strong>
+                <p className="text-sm text-gray-200 mt-2 ">Acesse o material complementar para acelerar o seu desenvolvimento</p>
+              </div>
+              <div className="h-full flex items-center p-6">
+              <CaretRight className="text-blue-300" size={24}/>
+              </div>
+            </a>
+            
+            
+            <a href="" className="bg-gray-700 flex  justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
+              <div className="bg-green-700 flex items-center p-6 h-full"><FileImage size={40} /></div>
+              <div className="py-6 leading-relaxed">
+                <strong className="text-2xl"> Material Complementar</strong>
+                <p className="text-sm text-gray-200 mt-2">Acesse o material complementar para acelerar o seu desenvolvimento</p>
+              </div>
+              <div className="h-full flex items-center p-6">
+              <CaretRight className="text-blue-300" size={24}/>
+              </div>
+            </a>
+            
+          </div>
         </div>
       </div>
     )
