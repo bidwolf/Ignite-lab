@@ -1,20 +1,67 @@
-import { Archive, ArchiveBox, ArchiveTray, ArrowArcRight, ArrowRight, CaretRight, DiscordLogo, Download, FileArrowDown, FileImage, Lightning, ToggleRight } from "phosphor-react";
+import {CaretRight, DiscordLogo, FileArrowDown, FileImage, Lightning } from "phosphor-react";
 import ButtonSuccess from "./ButtonSuccess";
 import ButtonSecondary from "./ButtonSecondary";
-export function Video() {
+import { Player, Youtube } from "@vime/react";
+import { gql, useQuery } from "@apollo/client";
+interface IVideoProps{
+  lessonSlug: string;
+}
+interface ILessonProps{
+  lesson: {
+    id: string;
+    title: string;
+    description: string;
+    videoId: string;
+    teacher: {
+      name: string;
+      bio: string;
+      avatarURL: string;
+    }
+  }
+}
+const GET_LESSON_BY_SLUG = gql`
+query getLessonBySlug($slug: String) {
+  lesson(where: {slug: $slug}) {
+    id
+    title
+    videoId
+    description
+    teacher {
+      avatarURL
+      bio
+      name
+    }
+    
+  }
+}
+`
+export function Video(props: IVideoProps) {
+  const { data, loading } = useQuery<ILessonProps>(GET_LESSON_BY_SLUG, {
+    fetchPolicy: 'network-only',
+    variables: { slug: props.lessonSlug },
+  });
+  if (loading||!data) {
     return (
       <div className="flex-1">
+        <p> Aqui virá o componente de loading</p>
+      </div>
+    )
+  }
+return (
+      <div className="flex-1">
         <div className="bg-black flex justify-center">
-          <div className="h-full w-full aspect-video max-w[1180px] max-h-[60vh]"> </div>
+          <div className="h-[90%] w-[90%] aspect-video max-w[1180px] max-h-[60vh]">
+            <Player controls={true}>
+              <Youtube videoId={data?.lesson.videoId}/>
+            </Player></div>
         </div>
         <div className="p-8 mx-auto max-w-[1180px]">
           <div className="flex items-start gap-16">
             <div className="flex-1">
               <h1 className="text-2xl font-bold">
-                Aula 1
-              </h1>
-              <p className="mt-4 text-gray-200 leading-relaxed">
-              Nessa aula vamos dar início ao projeto criando a estrutura base da aplicação utilizando ReactJS, Vite e TailwindCSS. Vamos também realizar o setup do nosso projeto no GraphCMS criando as entidades da aplicação e integrando a API GraphQL gerada pela plataforma no nosso front-end utilizando Apollo Client.              </p>
+                {data?.lesson.title}
+            </h1>
+            <p className="mt-4 text-gray-200 leading-relaxed">{ data?.lesson.description}</p>
             </div>
             <div className="flex flex-col gap-4">
               <ButtonSuccess
@@ -32,13 +79,13 @@ export function Video() {
           </div>
             <div className="flex flex-1 mt-6 gap-4">
               <img
-                src="https://github.com/bidwolf.png"
+                src={data?.lesson.teacher.avatarURL}
                 alt="Teacher Profile Icon"
                 className="rounded-full border-2 border-blue-500 max-h-[8vh] max-w-[8vh]"
               />
               <div className="leading-relaxed">
-                <strong className="text-bold text-2xl block"> Henrique de Paula Rodrigues</strong>
-                <span className="text-sm text-gray-200 block">Membro da equipe de Desenvolvimento na COMPET - CEFET-MG</span>
+                <strong className="text-bold text-2xl block">{data?.lesson.teacher.name}</strong>
+                <span className="text-sm text-gray-200 block">{data?.lesson.teacher.bio}</span>
               </div>
           </div>
           <div className="mt-20 grid gap-8 items-stretch grid-cols-2">
