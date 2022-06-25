@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import ButtonSuccess from "../components/ButtonSuccess";
+import ButtonSubmit from "../components/ButtonSubmit";
 import Logo from "../components/Logo";
 function Subscribe() {
     return (
@@ -31,7 +31,7 @@ function Subscribe() {
                 className="input"
             />
                     <div className="mt-4">
-                        <ButtonSuccess type="submit" textButton="Garantir minha vaga" />
+                        <ButtonSubmit  textButton="Garantir minha vaga" />
                     </div>
             </form>
                 </div>
