@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ButtonSubmit from "../components/ButtonSubmit";
 import Logo from "../components/Logo";
 import { useCreateSubscriberMutation } from "../graphql/generated";
-
+import imgUrl from '../../src/assets/react-bg.png';
 // Faz uma mutation no graphCMS que cadastra uma pessoa no evento e retorna o id da pessoa cadastrada
 function Subscribe() {
     const navigate = useNavigate();
@@ -69,7 +69,7 @@ function Subscribe() {
                     </div>
                 </main>
                 <div>
-                    <img src="/src/assets/react-bg.png" alt="react" />
+                <img src={imgUrl} alt="Imagem sobre desenvolvimento em reactJS" />
                 </div>
             </div>
         </Fragment>
