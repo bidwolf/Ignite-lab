@@ -10,4 +10,7 @@ body{
 }
 .input{
     @apply bg-gray-900 rounded border border-transparent w-full mb-2 p-4 text-white hover:transition-colors placeholder:text-gray-300 hover:border-green-700 invalid:border-red-600 focus:outline-0 focus:border-green-700 focus:outline-none
-}
+}.disable-link {
+    pointer-events: none;
+    opacity: 50%;
+  }
