@@ -1,6 +1,6 @@
 # Ignite-lab
 Desenvolvendo uma aplicação para plataforma de ensino
-## Sobre a aula
+## Aula 01
 
 Na aula do dia 20/06/2022 foi feito o setup do projeto com todas as tecnologias utilizadas para o desenvolvimento e produção da aplicação.
 
@@ -193,4 +193,21 @@ dentro do componente
 
 */
 const {data}=useQuery(GET_LESSONS_QUERY)
+```
+## Aula 05
+
+Na aula do dia 20/06/2022 foi feito o setup do projeto com todas as tecnologias utilizadas para o desenvolvimento e produção da aplicação.
+
+### Usando dados sensíveis
+
+Em diversos momentos na construção de aplicações web precisaremos nos conectar com apis de outras aplicações, e pra isso é necessário haver uma autenticação nos dados.
+
+Tornando então a etapa de autenticação altamente necessária para a construção das nossas aplicações, dito isso, tokens(chaves de acesso) devem ser utilizadas e armazenadas em locais seguros na nossas aplicação. Para isso usamos a dependência de desenvolvimento dotenv, para gerenciar esses dados de forma segura na nossa aplicação.
+
+#### Adicionando variáveis de ambiente
+
+O vite olha para os tokens da nossa aplicação através da palavra-chave VITE, no arquivo .env.local, para importar esses dados em typescript usamos o comando :
+
+```ts
+import.meta.env.VITE_TOKEN_NAME;
 ```
