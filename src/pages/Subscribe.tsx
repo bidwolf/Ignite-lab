@@ -1,33 +1,24 @@
-import { gql, useMutation } from "@apollo/client";
 import { Fragment, useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import ButtonSubmit from "../components/ButtonSubmit";
 import Logo from "../components/Logo";
-const CREATE_SUBSCRIBER_MUTATION = gql`
-mutation CreateSubscriber ($name:String!, $email:String!){
-  createSubscriber(data: {name: $name, email: $email}) {
-    id
-  }
-  
-}
-`
-interface ICreatedSubscriber{
-    createSubscriber: {
-        id: string;
-    }
-}
+import { useCreateSubscriberMutation } from "../graphql/generated";
+
 // Faz uma mutation no graphCMS que cadastra uma pessoa no evento e retorna o id da pessoa cadastrada
 function Subscribe() {
     const navigate = useNavigate();
     const [name, setName] = useState(''); //Usa as variáveis de estado para atualizar a variável name ao ser alterada no input
     const [email, setEmail] = useState('');//Usa as variáveis de estado para atualizar a variável email ao ser alterada no input
     // gera uma função chamada createSubscriberMutation que possui os mesmos parâmetros da mutation cadastrada
-    const [createSubscriberMutation, { data, error ,loading}] = useMutation(CREATE_SUBSCRIBER_MUTATION, {
+    const [createSubscriberMutation, { data, error, loading }] =useCreateSubscriberMutation( {
         variables: {
             name: name,
             email: email
         }
     })
+    if (error) {
+        console.error(error);
+    }
     async function handleSubscribe(event: FormEvent) {
         event.preventDefault();
         await createSubscriberMutation({
