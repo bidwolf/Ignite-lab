@@ -1,11 +1,14 @@
 import React from "react";
-
-function Logo() {
+interface ILogo{
+  width?: string ;
+  height?: string ;
+}
+function Logo(props:ILogo) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="237"
-      height="34"
+      width={props.width||"237px"}
+      height={props.height||"30px"}
       fill="none"
       viewBox="0 0 237 34"
     >
