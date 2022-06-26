@@ -11,6 +11,11 @@ mutation CreateSubscriber ($name:String!, $email:String!){
   
 }
 `
+interface ICreatedSubscriber{
+    createSubscriber: {
+        id: string;
+    }
+}
 // Faz uma mutation no graphCMS que cadastra uma pessoa no evento e retorna o id da pessoa cadastrada
 function Subscribe() {
     const navigate = useNavigate();
@@ -31,6 +36,7 @@ function Subscribe() {
                 email
             }
         })
+        window.alert(`Obrigado ${name} por se inscrever no nosso evento!`)
         navigate('/event');
     }
     return (
