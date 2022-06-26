@@ -48,7 +48,7 @@ export function Video(props: IVideoProps) {
             ></ButtonSecondary>
           </div>
         </div>
-        {data.lesson.teacher &&(<div className="flex flex-1 mt-6 gap-4">
+        {data.lesson.teacher?(<div className="flex flex-1 mt-6 gap-4">
             <img
               src={data?.lesson.teacher.avatarURL}
               alt="Teacher Profile Icon"
@@ -58,7 +58,7 @@ export function Video(props: IVideoProps) {
               <strong className="text-bold text-2xl block">{data?.lesson.teacher?.name}</strong>
               <span className="text-sm text-gray-200 block">{data?.lesson.teacher?.bio}</span>
             </div>
-          </div>)
+          </div>):""
         }
         <div className="mt-20 grid gap-8 items-stretch grid-cols-2">
 
