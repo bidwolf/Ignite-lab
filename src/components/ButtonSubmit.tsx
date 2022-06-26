@@ -1,4 +1,3 @@
-import { IconProps } from 'phosphor-react'
 interface IButtonProps{
     textButton: string;
     disabled?: boolean;

@@ -7,11 +7,11 @@ interface IVideoProps {
   lessonSlug: string;
 }
 export function Video(props: IVideoProps) {
-  const { data, loading } = useGetLessonBySlugQuery({
+  const { data } = useGetLessonBySlugQuery({
     fetchPolicy: 'network-only',
     variables: { slug: props.lessonSlug },
   });
-  if (loading || !data || !data.lesson) {
+  if (!data || !data.lesson) {
     return (
       <div className="flex-1">
         <p> Aqui virá o componente de loading</p>
@@ -30,9 +30,9 @@ export function Video(props: IVideoProps) {
         <div className="flex items-start gap-16">
           <div className="flex-1">
             <h1 className="text-2xl font-bold">
-              {data?.lesson.title}
+              {data.lesson.title}
             </h1>
-            <p className="mt-4 text-gray-200 leading-relaxed">{data?.lesson.description}</p>
+            <p className="mt-4 text-gray-200 leading-relaxed">{data.lesson.description}</p>
           </div>
           <div className="flex flex-col gap-4">
             <ButtonSuccess
@@ -48,7 +48,8 @@ export function Video(props: IVideoProps) {
             ></ButtonSecondary>
           </div>
         </div>
-        {data.lesson.teacher?(<div className="flex flex-1 mt-6 gap-4">
+        {data.lesson.teacher && (
+          <div className="flex flex-1 mt-6 gap-4">
             <img
               src={data?.lesson.teacher.avatarURL}
               alt="Teacher Profile Icon"
@@ -58,7 +59,7 @@ export function Video(props: IVideoProps) {
               <strong className="text-bold text-2xl block">{data?.lesson.teacher?.name}</strong>
               <span className="text-sm text-gray-200 block">{data?.lesson.teacher?.bio}</span>
             </div>
-          </div>):""
+          </div>)
         }
         <div className="mt-20 grid gap-8 items-stretch grid-cols-2">
 
