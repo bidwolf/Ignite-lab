@@ -10,7 +10,7 @@ function Event() {
             <Header />
             <main className="flex flex-1">
                 { slug ?
-                    <Video lessonSlug={slug} /> : <div className="flex-1">{/*Fazer um placeholder*/}</div>}
+                    <Video lessonSlug={slug} /> : <div className="flex-1">{<h3 className="text-xl flex justify-center items-center"> Clique em uma lição para participar!</h3>}</div>}
                 <Sidebar/>
             </main>
         </div>

@@ -1,4 +1,4 @@
-import { CaretRight, DiscordLogo, FileArrowDown, FileImage, Lightning } from "phosphor-react";
+import { CaretRight, DiscordLogo, FileArrowDown, FileImage, Lightning ,Question} from "phosphor-react";
 import ButtonSuccess from "./ButtonSuccess";
 import ButtonSecondary from "./ButtonSecondary";
 import { Player, Youtube } from "@vime/react";
@@ -64,7 +64,7 @@ export function Video(props: IVideoProps) {
         <div className="mt-20 grid gap-8 items-stretch grid-cols-2">
 
 
-          <a href="" className="bg-gray-700 flex justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
+          <a href="https://efficient-sloth-d85.notion.site/Material-complementar-86d4ef35af16471ebc3ae3eba1a378e5" className="bg-gray-700 flex justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
             <div className="bg-green-700 flex items-center p-6 h-full"><FileArrowDown size={40} /></div>
             <div className="py-6 leading-relaxed">
               <strong className="text-2xl"> Material Complementar</strong>
@@ -76,11 +76,21 @@ export function Video(props: IVideoProps) {
           </a>
 
 
-          <a href="" className="bg-gray-700 flex  justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
+          <a href="https://drive.google.com/drive/folders/1mxWnvlqmH7MbVRv2Na9xFNgCQCygM1iR?usp=sharing" className="bg-gray-700 flex  justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
             <div className="bg-green-700 flex items-center p-6 h-full"><FileImage size={40} /></div>
             <div className="py-6 leading-relaxed">
-              <strong className="text-2xl"> Material Complementar</strong>
-              <p className="text-sm text-gray-200 mt-2">Acesse o material complementar para acelerar o seu desenvolvimento</p>
+              <strong className="text-2xl">Wallpapers</strong>
+              <p className="text-sm text-gray-200 mt-2">Baixe wallpapers exclusivos da Maratona Explorer e personalize a sua máquina</p>
+            </div>
+            <div className="h-full flex items-center p-6">
+              <CaretRight className="text-blue-300" size={24} />
+            </div>
+          </a>
+          <a href="https://discord-service.rocketseat.dev/signin/ignite-lab" className="bg-gray-700 flex  justify-start rounded overflow-hidden gap-6 hover:bg-gray-600">
+            <div className="bg-green-700 flex items-center p-6 h-full"><Question size={40} /></div>
+            <div className="py-6 leading-relaxed">
+              <strong className="text-2xl">Dúvidas?</strong>
+              <p className="text-sm text-gray-200 mt-2">Acesse a comunidade da Rocketseat no discord e evolua com os outros devs!</p>
             </div>
             <div className="h-full flex items-center p-6">
               <CaretRight className="text-blue-300" size={24} />
