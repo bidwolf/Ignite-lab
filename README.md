@@ -421,6 +421,20 @@ Nome|Função|Exemplo de uso|tipo de dependência
 :---:|:---:|:---:|:---:
 dotenv|Armazenar variáveis de desenvolvimento| `import.meta.env.VITE_TOKEN_NAME` |Dependência de desenvolvimento
 
+### Usando dados sensíveis
+
+Em diversos momentos na construção de aplicações web precisaremos nos conectar com apis de outras aplicações, e pra isso é necessário haver uma autenticação nos dados.
+
+Tornando então a etapa de autenticação altamente necessária para a construção das nossas aplicações, dito isso, tokens(chaves de acesso) devem ser utilizadas e armazenadas em locais seguros na nossas aplicação. Para isso usamos a dependência de desenvolvimento dotenv, para gerenciar esses dados de forma segura na nossa aplicação.
+
+#### Adicionando variáveis de ambiente
+
+O vite olha para os tokens da nossa aplicação através da palavra-chave VITE, no arquivo .env.local, para importar esses dados em typescript usamos o comando :
+
+```ts
+import.meta.env.VITE_TOKEN_NAME;
+```
+
 ### Atualizando as configurações do apollo.ts
 
 Nossa aplicação possui uma tela para cadastro dos alunos, onde são realizadas mutations para inserção de dados no banco.
@@ -472,22 +486,60 @@ Na aula do dia 25/06/2022 foi feito o setup do projeto com todas as tecnologias 
 
 ### Dependências instaladas
 
-Nome|Função|Exemplo de uso
-:---:|:---:|:---:
-date-fns|Trabalhar com datas| `const isAvailable=isPast(props.availableAt)`
+Nome|Função|Exemplo de uso|tipo de dependência
+:---:|:---:|:---:|:---:
+@graphql/codegen (e seus variados plugins)|Gera tipagem baseada nas queries e mutations da pasta graphql| `graphql-codegen` |Dependência de desenvolvimento
 
-phosphor-react|SVG como componente react| `<CheckCircle size={20}/>`
+### Gerando tipagem das queries graphql
 
-### Usando dados sensíveis
+É possivel gerar todas as tipagens e funções (como useQuery/useMutation) anteriormente feitas dentro do código dos componentes, em um arquivo separado chamado `generated.ts` .
 
-Em diversos momentos na construção de aplicações web precisaremos nos conectar com apis de outras aplicações, e pra isso é necessário haver uma autenticação nos dados.
+Para isso é necessário seguir os seguintes passos:
+1. Criar um diretório chamado `graphql` dentro da pasta ***src***
+2. Criar dois diretórios mutations e queries onde serão armazenadas as queries e mutations do nosso projeto
+3. Salvar as queries e mutations de forma descritiva e com a extensão `.graphql`
+4. Criar o arquivo `codegen.yml` na raiz do projeto e configurá-lo conforme abaixo:
+    
 
-Tornando então a etapa de autenticação altamente necessária para a construção das nossas aplicações, dito isso, tokens(chaves de acesso) devem ser utilizadas e armazenadas em locais seguros na nossas aplicação. Para isso usamos a dependência de desenvolvimento dotenv, para gerenciar esses dados de forma segura na nossa aplicação.
+```yml
+    schema: https://api-sa-east-1.graphcms.com/v2/cl4oenrc924cn01xiezv89e0m/master
+    documents: './src/graphql/**/*.graphql'
+    generates:
+      ./src/graphql/generated.ts:
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
+        config:
+          reactApolloVersion: 3
+          withHooks: true
+          withHOC: false
+          withComponent: false
+     ```
 
-#### Adicionando variáveis de ambiente
+5. usar o graphql-codegen/cli para gerar o `arquivo generated.ts` através do comando 
+    
 
-O vite olha para os tokens da nossa aplicação através da palavra-chave VITE, no arquivo .env.local, para importar esses dados em typescript usamos o comando :
+```shell
+    graphql-codegen
+    ```
+
+6. Alterar os arquivos que consumiam os dados nos componentes de acordo com o exemplo a seguir:
+   
 
 ```ts
-import.meta.env.VITE_TOKEN_NAME;
-```
+   import { useGetLessonBySlugQuery } from "../graphql/generated";
+    //antes faria a importação {gql,useQuery} do apollo
+
+    // No componente:
+    const {data}=useGetLessonBySlugQuery({variables:{slug:props.lessonSlug}}) //tipos já definidos no arquivo generated.
+    // antes usaria
+    //useQuery<interfaceBaseadaNosTipos>({variables:{slug:props.lessonSlug}})
+   ```
+
+### Configurando a vercel
+
+Não há muito o que falar aqui, configurar a vercel é bem simples e intuitivo, então as únicas coisas que valem a pena lembrar são:
+
+* Lembrar de colocar as variáveis de ambiente
+* Adicionar o arquivo vercel.json configurando-o corretamente.
