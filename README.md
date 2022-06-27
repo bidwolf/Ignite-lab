@@ -336,6 +336,79 @@ export function StreetComponent(props:StreetComponentProps){
 
 ```
 
+## Aula 03
+
+Na aula do dia 23/06/2022 foi finalizada a estilização da página de eventos e adicionada a lógica adotada para criação de rotas usando React Routes.
+
+### Dependências instaladas
+
+Nome|Função|exemplo de uso|tipo de dependência
+:---:|:---:|:---:|:---:
+@Vime/react|Inclusão de players de vídeo personalizados como componentes| `import { Player, Youtube } from "@vime/react";` |Dependência de produção
+react-router-dom|utilização de rotas com react| `import { Routes,Route } from "react-router-dom";` |Dependência de produção
+
+### Criando rotas usando react
+
+Para criar rotas usando react é necessário instalar a dependência ***react-router-dom***.
+
+Feito isso podemos criar novas rotas criando um componente chamado `Router.tsx` na raiz do projeto.
+Nesse componente deve conter o seguinte código base:
+
+```tsx
+import { Routes,Route } from "react-router-dom";
+import Event from "./pages/Event";
+import Subscribe from "./pages/PageComponent";
+
+export default function Router( ) {
+    return (
+        <Routes>
+          <Route 
+            path="/" // Caminho acessado no navegador para ir até a rota.
+            element={<PageComponent/>} // componente de página a ser renderizado quando o usuário acessar o path na url.
+          ><Route/>
+        </Routes>)
+}
+
+```
+
+Além disso, é necessário fazer uma alteração no arquivo `App.tsx` e incluir o React ***contextProvider*** `BrowserRouter `que provém para todos os seus elementos filhos a possibilidade de prover rotas,links relativos e etc.
+
+```tsx
+import { ApolloProvider } from "@apollo/client"
+import { BrowserRouter} from "react-router-dom"
+import { client } from "./lib/apollo"
+import Router from "./Router"
+function App() {
+  
+  return (
+    <div>
+      <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Router/>
+      </BrowserRouter>
+      </ApolloProvider>
+    </div>
+  )
+}
+
+export default App
+
+```
+
+### Usando parâmetros url
+
+Algumas páginas web podem fornecer conteúdos dinâmicos baseados na url do navegador. Um exemplo disso é a nossa própria aplicação, que ao acessar o `endereço-padrão/events/nome-do-evento` ele responde com a página do evento com o vídeo da aula e os dados da mesma.
+
+Para fazer isso, é necessário incluir no arquivo `Routes.tsx`, uma sub-rota que possui um parâmetro no path, que é incluido com `:parâmetro`.
+
+Daí, na página em que seria acessada essa informação, se adiciona o seguinte código para capturar esse parâmetro:
+```ts
+import {useParams}from "react-router-dom";
+//...
+//  dentro do componente
+const {parâmetro}=useParams<{parâmetro:string}>()
+```
+Que vai capturar qualquer parâmetro fornecido na url e armazenar na variável parâmetro.
 ## Aula 05
 
 Na aula do dia 25/06/2022 foi feito o setup do projeto com todas as tecnologias utilizadas para o desenvolvimento e produção da aplicação.
