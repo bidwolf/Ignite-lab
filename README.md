@@ -30,7 +30,7 @@ Na aula do dia 20/06/2022 foi feito o setup do projeto com todas as tecnologias 
 
 ### Dependências instaladas
 
-Nome|Função|exemplo de uso|tipo de dependência
+Nome|Função|Exemplo de uso|tipo de dependência
 :---:|:---:|:---:|:---:
 vite|Scaffolding de criação de projetos frontend| `npm create vite@latest` |Dependência de desenvolvimento
 Typescript|Superset criado para adicionar tipagem ao javascript| `interface ReceitaDeBolo{nome:string;autor:string;}` |Dependência de desenvolvimento
@@ -237,11 +237,10 @@ Na aula do dia 21/06/2022 foi feito o setup do projeto com todas as tecnologias 
 
 ### Dependências instaladas
 
-Nome|Função|exemplo de uso
-:---:|:---:|:---:
-date-fns|Trabalhar com datas| `const isAvailable=isPast(props.availableAt)`
-
-phosphor-react|SVG como componente react| `<CheckCircle size={20}/>`
+Nome|Função|Exemplo de uso|Tipo de dependência
+:---:|:---:|:---:|:---:
+date-fns|Trabalhar com datas| `const isAvailable=isPast(props.availableAt)` |Dependência de produção
+phosphor-react|SVG como componente react| `<CheckCircle size={20}/>` |Dependência de produção
 
 ### Personalizando as configurações do TailwindCSS
 
@@ -342,7 +341,7 @@ Na aula do dia 23/06/2022 foi finalizada a estilização da página de eventos e
 
 ### Dependências instaladas
 
-Nome|Função|exemplo de uso|tipo de dependência
+Nome|Função|Exemplo de uso|tipo de dependência
 :---:|:---:|:---:|:---:
 @Vime/react|Inclusão de players de vídeo personalizados como componentes| `import { Player, Youtube } from "@vime/react";` |Dependência de produção
 react-router-dom|utilização de rotas com react| `import { Routes,Route } from "react-router-dom";` |Dependência de produção
@@ -371,7 +370,7 @@ export default function Router( ) {
 
 ```
 
-Além disso, é necessário fazer uma alteração no arquivo `App.tsx` e incluir o React ***contextProvider*** `BrowserRouter `que provém para todos os seus elementos filhos a possibilidade de prover rotas,links relativos e etc.
+Além disso, é necessário fazer uma alteração no arquivo `App.tsx` e incluir o React ***contextProvider*** `BrowserRouter ` que provém para todos os seus elementos filhos a possibilidade de prover rotas, links relativos e etc.
 
 ```tsx
 import { ApolloProvider } from "@apollo/client"
@@ -399,23 +398,81 @@ export default App
 
 Algumas páginas web podem fornecer conteúdos dinâmicos baseados na url do navegador. Um exemplo disso é a nossa própria aplicação, que ao acessar o `endereço-padrão/events/nome-do-evento` ele responde com a página do evento com o vídeo da aula e os dados da mesma.
 
-Para fazer isso, é necessário incluir no arquivo `Routes.tsx`, uma sub-rota que possui um parâmetro no path, que é incluido com `:parâmetro`.
+Para fazer isso, é necessário incluir no arquivo `Routes.tsx` , uma sub-rota que possui um parâmetro no path, que é incluido com `:parâmetro` .
 
 Daí, na página em que seria acessada essa informação, se adiciona o seguinte código para capturar esse parâmetro:
+
 ```ts
 import {useParams}from "react-router-dom";
 //...
 //  dentro do componente
 const {parâmetro}=useParams<{parâmetro:string}>()
 ```
+
 Que vai capturar qualquer parâmetro fornecido na url e armazenar na variável parâmetro.
+
+## Aula 04
+
+Na aula do dia 24/06/2022 foi feita a criação da página de inscrição do evento, pelo qual é inserido no banco de dados os dados preenchidos no formulário de cadastro, garantindo ao usuário, acesso aos conteúdos disponibilizados pela aplicação.
+
+### Dependências instaladas
+
+Nome|Função|Exemplo de uso|tipo de dependência
+:---:|:---:|:---:|:---:
+dotenv|Armazenar variáveis de desenvolvimento| `import.meta.env.VITE_TOKEN_NAME` |Dependência de desenvolvimento
+
+### Atualizando as configurações do apollo.ts
+
+Nossa aplicação possui uma tela para cadastro dos alunos, onde são realizadas mutations para inserção de dados no banco.
+
+Para que isso possa ser feito pela nossa aplicação, precisamos fornecer um token de autenticação provindo do graphCMS que nos possibilita criar e publicar dados de acordo com o que nossa aplicação necessita. Portanto, uma vez configuradas as permissões no graphCMS, basta então copiar o código token e utiliza-lo como variável de ambiente na nossa aplicação alterando o arquivo `apollo.ts` e adicionando o seguinte:
+
+```ts
+// ...configurações do ApolloClient factory
+    headers:{'Authorization':`Bearer ${import.meta.env.VITE_API_ACCESS_TOKEN}`},
+    // ...outras configurações
+    
+```
+
+### Criando mutations genéricas com useMutation
+
+Ao criar mutations o processo é muito similar com o processo de criação de uma query, mas basicamente, use o API playground do cms pra facilitar o serviço, crie a mutation e copie o código, seguindo o padrão de fornecimento de parâmetros.
+
+Uma vez criada basta agora adicioná-la ao código da seguinte forma:
+
+```ts
+
+const [createSubscriberMutation, { data, error ,loading}] = useMutation(CREATE_SUBSCRIBER_MUTATION, {
+        variables: {
+            name: name,
+            email: email
+        }
+    })
+
+```
+
+Essa mutation só é chamada quando solicitado, no nosso caso seria chamada quando o botão de submit é acionado.
+
+### Formulários no React
+
+Criar um formulário em react é um pouco diferente de como é feito em html padrão, por exemplo, o próprio ts não considera correta a utilização da variável global event, de window, e portanto ao criar um evento que se relaciona com o submit do formulário, é necessária a utilização da importação da interface `FormEvent` do ***react*** para tipagem desse objeto. 
+
+### Importação de imagens
+
+As imagens devem ser importadas de forma diferente para que seja possível utiliza-las em produção, portanto, em qualquer imagem padrão, você deve usar a sintaxe 
+
+```tsx
+import {imgUrl} from '/diretórioRelativo-da-imagem'
+<img src={imgUrl} alt="Imagem sobre desenvolvimento em reactJS" />
+```
+
 ## Aula 05
 
 Na aula do dia 25/06/2022 foi feito o setup do projeto com todas as tecnologias utilizadas para o desenvolvimento e produção da aplicação.
 
 ### Dependências instaladas
 
-Nome|Função|exemplo de uso
+Nome|Função|Exemplo de uso
 :---:|:---:|:---:
 date-fns|Trabalhar com datas| `const isAvailable=isPast(props.availableAt)`
 
