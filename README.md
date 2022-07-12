@@ -83,7 +83,7 @@ Entretanto, se você for do tipo que não instala qualquer dependência, você p
 
 ```ts
 import { useEffect } from "react"
-const API_URL:string=process.env.API_URL || "https://api-sa-east-1.graphcms.com/v2/cl4oenrc924cn01xiezv89e0m/master"
+const API_URL:string=process.env.API_URL
 function App() {
   useEffect(() => {
     fetch(API_URL, {
