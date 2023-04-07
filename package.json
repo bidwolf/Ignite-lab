@@ -9,7 +9,7 @@
     "generate": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "^3.7.10",
     "@vime/core": "^5.3.1",
     "@vime/react": "^5.3.1",
     "date-fns": "^2.28.0",
